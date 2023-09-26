@@ -17,7 +17,8 @@ class WindDirectionTemperature(MRJob):
 
     def reducer(self, key, values):
         temps = list(values)
-        yield key, {
+        formatted_key = str(int(key))  # Convert the wind direction key to an integer to remove leading zeros, then back to string
+        yield formatted_key, {
             "low": min(temps),
             "high": max(temps),
             "count": len(temps)
